@@ -174,7 +174,7 @@ const Footer1 = () => {
                       Castus infotive@.com
                     </Link>
                     <Link to="mailto:Castusinfotive@.com" className="email">
-                      webdexai.com
+                      Castus
                     </Link>
                   </div>
                   <div className="footer-social">
