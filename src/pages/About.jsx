@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CountUp, { useCountUp } from "react-countup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAbout, getTeam } from "redux/slices/aboutSlice";
+import { getAbout, getMainInfo, getTeam } from "redux/slices/aboutSlice";
 import { useState } from "react";
 
 export default function About() {
@@ -11,38 +11,37 @@ export default function About() {
   useEffect(() => {
     dispatch(getTeam());
     dispatch(getAbout());
+    dispatch(getMainInfo())
+
   }, []);
 
+  const mainInfo  = useSelector((state) => state?.about?.mainInfo)
   const About = useSelector((state) => state?.about?.about?.results);
   const Team = useSelector((state) => state?.about?.team?.results);
-  console.log(Team);
   const [ceo, setCeo] = useState({});
   useEffect(() => {
     Team && setCeo(Team?.find((i) => i?.position?.includes("CEO")));
   }, [Team]);
-  console.log(ceo);
   return (
     <Layout
       headerStyle={1}
       footerStyle={1}
       breadcrumbTitle={
-        <>
+        <h1 style={{fontSize:'5rem'}}>
           About <span>CASTUS</span>
-        </>
+        </h1>
       }
     >
       <div>
         {/* about-area */}
         <section className="inner-about-area pb-100">
           <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="inner-about-img">
-                  <img src="/assets/img/IMG_0278.JPG" alt="CASTUS" />
+              {About?.map((item,index) => (
+            <div className={index % 2 !== 0 ? "row flex-row-reverse align-items-center mb-5" : "row align-items-center mb-5"} key={item?.id}>
+                <div className="col-lg-6">
+                  <img style={{width:'100%',objectFit:'cover',height:'350px',borderRadius:'15px'}} src="https://images.unsplash.com/photo-1559825477-6f38d6332bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG9jZWFuJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=400&q=60" alt="castus" />
                 </div>
-              </div>
-              {About?.map((item) => (
-                <div className="col-lg-12">
+                <div className="col-lg-6" >
                   <div className="inner-about-content">
                     <h2 className="title wow fadeInUp" data-wow-delay=".2s">
                       {item?.title}
@@ -52,8 +51,27 @@ export default function About() {
                     </div>
                   </div>
                 </div>
-              ))}
             </div>
+              ))}
+          </div>
+          <div className="container">
+             
+            <div className="row align-items-center mb-5  pt-5">
+             
+                <div className="col-lg-12" >
+                  <div className="inner-about-content">
+                  <h2 className="title wow fadeInUp" data-wow-delay=".2s">
+                      Why Us?
+                    </h2>
+               
+                    <div className="content-bottom">
+                      <p className="w-100"> {mainInfo?.why_us}</p>
+                    </div>
+                   
+                  </div>
+                </div>
+            </div>
+          
           </div>
         </section>
         {/* about-area-end */}
@@ -91,21 +109,13 @@ export default function About() {
                           <i className="fab fa-twitter" />
                         </Link>
                       </li>
-                      <li>
-                        <Link to={ceo?.facebook}>
-                          <i className="fab fa-facebook-f" />
-                        </Link>
-                      </li>
+                    
                       <li>
                         <Link to={ceo?.linkedin}>
                           <i className="fab fa-linkedin-in" />
                         </Link>
                       </li>
-                      <li>
-                        <Link to={ceo?.github}>
-                          <i className="fab fa-github" />
-                        </Link>
-                      </li>
+               
                     </ul>
                   </div>
                 </div>
@@ -131,21 +141,13 @@ export default function About() {
                                 <i className="fab fa-twitter" />
                               </Link>
                             </li>
-                            <li>
-                              <Link to={member?.facebook}>
-                                <i className="fab fa-facebook-f" />
-                              </Link>
-                            </li>
+                       
                             <li>
                               <Link to={member?.linkedin}>
                                 <i className="fab fa-linkedin-in" />
                               </Link>
                             </li>
-                            <li>
-                              <Link to={member?.github}>
-                                <i className="fab fa-github" />
-                              </Link>
-                            </li>
+                       
                           </ul>
                         </div>
                       </div>

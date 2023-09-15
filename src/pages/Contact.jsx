@@ -1,11 +1,79 @@
 import Layout from "components/layout/Layout";
+import Preloader from "components/preloader/Preloader";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getMainInfo } from "redux/slices/aboutSlice";
+import { postContact } from "redux/slices/contactSlice";
 
 const Contact = () => {
+  const dispatch = useDispatch();
+  const contact = useSelector((state) => state?.contact?.contact);
+  const mainInfo = useSelector((state) => state?.about?.mainInfo);
+  const loading = useSelector((state) => state?.contact?.loading);
+  const [data, setData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    subject: "",
+    message: "",
+  });
+  const [done, setDone] = useState(false);
+  const [notValid, setNotValid] = useState(true);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      postContact({
+        first_name: data?.first_name,
+        last_name: data?.last_name,
+        email: data?.email,
+        phone_number: data?.phone_number,
+        subject: data?.subject,
+        message: data?.message,
+      })
+    ).then(() =>
+      setData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+        subject: "",
+        message: "",
+      })
+    );
+  };
+  useEffect(() => {
+    contact && !loading && setDone(true);
+  }, [contact, loading]);
+  useEffect(() => {
+    if (
+      data?.first_name?.length > 0 &&
+      data?.last_name?.length > 0 &&
+      data?.email?.length > 0 &&
+      data?.phone_number?.length > 0 &&
+      data?.subject?.length > 0 &&
+      data?.message?.length > 0
+    ) {
+      setNotValid(false);
+    }
+  }, [data]);
+  useEffect(() => {
+    dispatch(getMainInfo())
+  }, []);
+console.log(mainInfo)
   return (
     <Layout
       headerStyle={1}
       footerStyle={1}
-      breadcrumbTitle={ <> Get in <span>Touch</span> </> }>
+      breadcrumbTitle={
+        <>
+          {" "}
+          Get in <span>Touch</span>{" "}
+        </>
+      }
+    >
       <div>
         <section className="contact-area pb-140">
           <div className="container">
@@ -19,7 +87,7 @@ const Contact = () => {
                     <div className="content">
                       <h2 className="title">Visit Us Daily</h2>
                       <p>
-                        1791 Yorkshire Circle KittyNY <br /> 10002,USA
+                      East Ham,   <br /> England
                       </p>
                     </div>
                   </div>
@@ -31,8 +99,8 @@ const Contact = () => {
                     </div>
                     <div className="content">
                       <h2 className="title">Contact Us</h2>
-                      <span>+ 1 008-345-6789</span>
-                      <span>+1 800-789-4561</span>
+                      <span>{mainInfo?.whatsapp}</span>
+                      {/* <span>+1 800-789-4561</span> */}
                     </div>
                   </div>
                 </div>
@@ -43,8 +111,8 @@ const Contact = () => {
                     </div>
                     <div className="content">
                       <h2 className="title">Email Us</h2>
-                      <span>Sotcoxinfo@example.com</span>
-                      <span>Webyourinfo@gmail.com</span>
+                      <span>{mainInfo?.email}</span>
+                      {/* <span>Webyourinfo@gmail.com</span> */}
                     </div>
                   </div>
                 </div>
@@ -59,7 +127,7 @@ const Contact = () => {
                   <div className="row">
                     <div className="col-lg-5">
                       <div className="responds-wrap">
-                        <ul className="list-wrap">
+                        {/* <ul className="list-wrap">
                           <li>
                             <img
                               src="assets/img/images/m_voice_img01.png"
@@ -90,7 +158,8 @@ const Contact = () => {
                               alt=""
                             />
                           </li>
-                        </ul>
+                        </ul> */}
+                        {done && <p>Thank you for this message!</p>}
                         <p>Responds in 4-8 hours</p>
                       </div>
                     </div>
@@ -100,14 +169,40 @@ const Contact = () => {
                           <div className="form-grp">
                             <input
                               type="text"
+                              value={data?.first_name}
+                              onChange={(e) => {
+                                setDone(false);
+                                setData({
+                                  ...data,
+                                  first_name: e.target.value,
+                                });
+                              }}
                               id="name"
-                              placeholder="Your Name"
+                              placeholder="Your First Name"
+                              required
+                            />
+                          </div>
+                          <div className="form-grp">
+                            <input
+                              type="text"
+                              value={data?.last_name}
+                              onChange={(e) => {
+                                setDone(false);
+                                setData({ ...data, last_name: e.target.value });
+                              }}
+                              id="name"
+                              placeholder="Your Last Name"
                               required
                             />
                           </div>
                           <div className="form-grp">
                             <input
                               type="email"
+                              value={data?.email}
+                              onChange={(e) => {
+                                setDone(false);
+                                setData({ ...data, email: e.target.value });
+                              }}
                               id="email"
                               placeholder="Your email*"
                               required
@@ -116,20 +211,62 @@ const Contact = () => {
                           <div className="form-grp">
                             <input
                               type="text"
+                              value={data?.phone_number}
+                              onChange={(e) => {
+                                setDone(false);
+                                setData({
+                                  ...data,
+                                  phone_number: e.target.value,
+                                });
+                              }}
                               id="phone"
                               placeholder="Phone"
                               required
                             />
                           </div>
                           <div className="form-grp">
+                            <input
+                              type="text"
+                              value={data?.subject}
+                              onChange={(e) => {
+                                setDone(false);
+                                setData({ ...data, subject: e.target.value });
+                              }}
+                              id="subject"
+                              placeholder="Subject"
+                              required
+                            />
+                          </div>
+                          <div className="form-grp">
                             <textarea
+                              value={data?.message}
+                              onChange={(e) => {
+                                setDone(false);
+                                setData({ ...data, message: e.target.value });
+                              }}
                               name="message"
                               id="message"
                               placeholder="Please describe what you need*"
                             />
                           </div>
-                          <button className="btn" type="submit">
-                            submit here
+                          <button
+                            disabled={notValid}
+                            onClick={(e) => handleSubmit(e)}
+                            className="btn"
+                            type="submit"
+                          >
+                            {loading ? (
+                              <>
+                                <span
+                                  class="spinner-grow spinner-grow-sm"
+                                  role="status"
+                                  aria-hidden="true"
+                                ></span>
+                                Loading...
+                              </>
+                            ) : (
+                              "submit here"
+                            )}
                           </button>
                         </form>
                       </div>

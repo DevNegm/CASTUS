@@ -2222,12 +2222,12 @@ label {
 /* inner-about */
 .inner-about-img {
     margin-bottom: 60px;
+    height: 300px;
 }
 
 .inner-about-img img {
     border-radius: 30px;
     border: 4px solid rgb(217 217 217 / 20%);
-    mix-blend-mode: luminosity;
 }
 
 .inner-about-content .title {

@@ -1,5 +1,8 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import { getMainInfo } from "redux/slices/aboutSlice";
 const settings = {
   dots: false,
   infinite: true,
@@ -44,6 +47,12 @@ const settings = {
 };
 
 const Footer1 = () => {
+  const mainInfo  = useSelector((state) => state?.about?.mainInfo)
+  console.log(mainInfo)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getMainInfo())
+  }, []);
   return (
     <footer>
       <div className="footer-area">
@@ -130,10 +139,10 @@ const Footer1 = () => {
                         <Link to="/contact">Invite a friend</Link>
                       </li>
                       <li>
-                        <Link to="/contact">Privacy policy</Link>
+                        <Link to="/privacy-and-policy">Privacy policy</Link>
                       </li>
                       <li>
-                        <Link to="/contact">Terms of use</Link>
+                        <Link to="/terms-of-service">Terms of use</Link>
                       </li>
                     </ul>
                   </div>
@@ -145,7 +154,7 @@ const Footer1 = () => {
                   <div className="footer-link">
                     <ul className="list-wrap">
                       <li>
-                        <Link to="/">DEX. AI</Link>
+                        <Link to="/">Castus</Link>
                       </li>
                       <li>
                         <Link to="/work">Our work</Link>
@@ -168,10 +177,10 @@ const Footer1 = () => {
                   <h4 className="fw-title">Need help?</h4>
                   <div className="footer-contact">
                     <Link to="tel:0123456789" className="phone">
-                      +(1) 123 656 7866
+                      {mainInfo?.whatsapp}
                     </Link>
                     <Link to="mailto:Castusinfotive@.com" className="email">
-                      Castus infotive@.com
+                      {mainInfo?.email}
                     </Link>
                     <Link to="mailto:Castusinfotive@.com" className="email">
                       Castus
@@ -179,24 +188,29 @@ const Footer1 = () => {
                   </div>
                   <div className="footer-social">
                     <ul className="list-wrap">
-                      <li>
-                        <Link to="#">
-                          <i className="fab fa-twitter" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="#">
+                    <li>
+                        <Link to={mainInfo?.facebook}>
                           <i className="fab fa-facebook-f" />
                         </Link>
                       </li>
                       <li>
-                        <Link to="#">
-                          <i className="fab fa-linkedin-in" />
+                        <Link to={mainInfo?.twitter}>
+                          <i className="fab fa-twitter" />
                         </Link>
                       </li>
                       <li>
-                        <Link to="#">
-                          <i className="fab fa-pinterest-p" />
+                        <Link to={mainInfo?.instagram}>
+                          <i className="fab fa-instagram" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={mainInfo?.telegram}>
+                          <i className="fab fa-telegram" />
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={mainInfo?.email}>
+                          <i className="fa fa-envelope" />
                         </Link>
                       </li>
                     </ul>
@@ -230,10 +244,13 @@ const Footer1 = () => {
                 <div className="footer-menu">
                   <ul className="list-wrap">
                     <li>
-                      <Link to="/contact">Terms & Conditions</Link>
+                      <Link to="/terms-of-service">Terms & Conditions</Link>
                     </li>
                     <li>
-                      <Link to="/contact">Refund Policy</Link>
+                      <Link to="/privacy-and-policy">Privacy & Policy</Link>
+                    </li>
+                    <li>
+                      <Link to="/cookie-and-policy">Cookie & Policy</Link>
                     </li>
                   </ul>
                 </div>

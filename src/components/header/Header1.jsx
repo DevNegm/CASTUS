@@ -2,11 +2,17 @@ import LanguageDropdown from "./LanguageDropdown";
 import { Link, useLocation } from "react-router-dom";
 import MenuMobile from "./MenuMobile";
 import { useCallback, useEffect, useState } from "react";
+import { getMainInfo } from "redux/slices/aboutSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Header1 = ({ scroll, isMobileMenu, handleMobileMenu }) => {
   const { pathname } = useLocation();
   const [isActive, setIsActive] = useState("home1");
-
+  const mainInfo  = useSelector((state) => state?.about?.mainInfo)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getMainInfo())
+  }, []);
   useEffect(() => {
     if (pathname) {
       let activePath = pathname.slice(1, pathname.length);
@@ -20,11 +26,9 @@ const Header1 = ({ scroll, isMobileMenu, handleMobileMenu }) => {
         case "pages":
         case "work":
         case "faq":
-        case "job-details":
-        case "help":
-        case "login":
-        case "404":
-        case "job": {
+        case "cookie":
+        case "privacy":
+        case "terms": {
           return true;
         }
         default:
@@ -197,39 +201,58 @@ const Header1 = ({ scroll, isMobileMenu, handleMobileMenu }) => {
                             <Link to="/faq">Faq Page</Link>
                           </li>
                           <li
+                            className={`${isActive === "cookie" ? "active" : ""}`}
+                            onClick={() => handleActive("cookie")}
+                          >
+                            <Link to="/cookie-and-policy">Cookie And Policy</Link>
+                          </li>
+                          <li
+                            className={`${isActive === "privacy" ? "active" : ""}`}
+                            onClick={() => handleActive("privacy")}
+                          >
+                            <Link to="/privacy-and-policy">Privacy And Policy</Link>
+                          </li>
+                          <li
+                            className={`${isActive === "terms" ? "active" : ""}`}
+                            onClick={() => handleActive("terms")}
+                          >
+                            <Link to="/terms-of-service">Terms Of Service</Link>
+                          </li>
+                      
+                          <li
                             className={`${isActive === "help" ? "active" : ""}`}
                             onClick={() => handleActive("help")}
                           >
                             <Link to="/help">Help Center</Link>
                           </li>
-                          <li
+                          {/* <li
                             className={`${isActive === "job" ? "active" : ""}`}
                             onClick={() => handleActive("job")}
                           >
                             <Link to="/job">Job Page</Link>
-                          </li>
-                          <li
+                          </li> */}
+                          {/* <li
                             className={`${
                               isActive === "job-details" ? "active" : ""
                             }`}
                             onClick={() => handleActive("job-details")}
                           >
                             <Link to="/job-details">Job Details</Link>
-                          </li>
-                          <li
+                          </li> */}
+                          {/* <li
                             className={`${
                               isActive === "login" ? "active" : ""
                             }`}
                             onClick={() => handleActive("login")}
                           >
                             <Link to="/login">Login Page</Link>
-                          </li>
-                          <li
+                          </li> */}
+                          {/* <li
                             className={`${isActive === "404" ? "active" : ""}`}
                             onClick={() => handleActive("404")}
                           >
                             <Link to="/404">404 Error Page</Link>
-                          </li>
+                          </li> */}
                         </ul>
                       </li>
                       <li
@@ -295,28 +318,28 @@ const Header1 = ({ scroll, isMobileMenu, handleMobileMenu }) => {
                   <div className="social-links">
                     <ul className="clearfix list-wrap">
                       <li>
-                        <Link to="#">
+                        <Link to={mainInfo?.facebook}>
                           <i className="fab fa-facebook-f" />
                         </Link>
                       </li>
                       <li>
-                        <Link to="#">
+                        <Link to={mainInfo?.twitter}>
                           <i className="fab fa-twitter" />
                         </Link>
                       </li>
                       <li>
-                        <Link to="#">
+                        <Link to={mainInfo?.instagram}>
                           <i className="fab fa-instagram" />
                         </Link>
                       </li>
                       <li>
-                        <Link to="#">
-                          <i className="fab fa-linkedin-in" />
+                        <Link to={mainInfo?.telegram}>
+                          <i className="fab fa-telegram" />
                         </Link>
                       </li>
                       <li>
-                        <Link to="#">
-                          <i className="fab fa-youtube" />
+                        <Link to={mainInfo?.email}>
+                          <i className="fa fa-envelope" />
                         </Link>
                       </li>
                     </ul>

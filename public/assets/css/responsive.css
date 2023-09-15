@@ -549,7 +549,7 @@
 	}
 
 	.inner-about-img img {
-		min-height: 420px;
+		min-height: 200px;
 		object-fit: cover;
 	}
 
@@ -1059,7 +1059,7 @@
 	}
 
 	.inner-about-img img {
-		min-height: 390px;
+		min-height: 200px;
 		object-fit: cover;
 	}
 
@@ -1773,7 +1773,7 @@
 	}
 
 	.inner-about-img img {
-		min-height: 310px;
+		min-height: 200px;
 	}
 
 	.inner-about-content .title {

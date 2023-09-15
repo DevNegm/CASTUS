@@ -30,15 +30,13 @@ function MenuMobile({ handleCloseMenu }) {
     if (param === "pages") {
       switch (current) {
         case "pages":
-        case "work":
-        case "faq":
-        case "job-details":
-        case "help":
-        case "login":
-        case "404":
-        case "job": {
-          return true;
-        }
+          case "work":
+          case "faq":
+          case "cookie":
+          case "privacy":
+          case "terms": {
+            return true;
+          }
         default:
           return false;
       }
@@ -250,6 +248,36 @@ function MenuMobile({ handleCloseMenu }) {
               <Link to="/help">Help Center</Link>
             </li>
             <li
+              className={`${current === "cookie" ? "active" : ""} menusub-link`}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCurrent("cookie");
+                handleCloseMenu();
+              }}
+            >
+              <Link to="/cookie-and-policy">Cookie And Policy</Link>
+            </li>
+            <li
+              className={`${current === "privacy" ? "active" : ""} menusub-link`}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCurrent("privacy");
+                handleCloseMenu();
+              }}
+            >
+              <Link to="/privacy-and-policy">Privacy And Policy</Link>
+            </li>
+            <li
+              className={`${current === "terms" ? "active" : ""} menusub-link`}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleCurrent("terms");
+                handleCloseMenu();
+              }}
+            >
+              <Link to="/terms-of-service">Terms Of Service</Link>
+            </li>
+            {/* <li
               className={`${current === "job" ? "active" : ""} menusub-link`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -258,8 +286,8 @@ function MenuMobile({ handleCloseMenu }) {
               }}
             >
               <Link to="/job">Job Page</Link>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className={`${
                 current === "job-details" ? "active" : ""
               } menusub-link`}
@@ -270,8 +298,8 @@ function MenuMobile({ handleCloseMenu }) {
               }}
             >
               <Link to="/job-details">Job Details</Link>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className={`${current === "login" ? "active" : ""} menusub-link`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -280,8 +308,8 @@ function MenuMobile({ handleCloseMenu }) {
               }}
             >
               <Link to="/login">Login Page</Link>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className={`${current === "404" ? "active" : ""} menusub-link`}
               onClick={(e) => {
                 e.stopPropagation();
@@ -290,7 +318,7 @@ function MenuMobile({ handleCloseMenu }) {
               }}
             >
               <Link to="/404">404 Error Page</Link>
-            </li>
+            </li> */}
           </ul>
         </Collapse>
 

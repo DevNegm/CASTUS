@@ -21,8 +21,8 @@ const Video = () => {
                         <div className="col-lg-12">
                             <div className="video-wrap">
                                 <video className="live-video" loop autoPlay muted>
-                                    <source src="/assets/videos/video_01.mp4" type="video/mp4" />
-                                    <source src="/assets/videos/video_01.ogg" type="video/ogg" />
+                                    <source src="https://vod-progressive.akamaized.net/exp=1694821059~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F1627%2F12%2F308135875%2F1184308017.mp4~hmac=54a750aa555508b06c55319bcb5bb82bec9096c7161b5ec34fafe0fda427fc7d/vimeo-prod-skyfire-std-us/01/1627/12/308135875/1184308017.mp4?filename=file.mp4" type="video/mp4" />
+                                    <source src="https://vod-progressive.akamaized.net/exp=1694821059~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F1627%2F12%2F308135875%2F1184308017.mp4~hmac=54a750aa555508b06c55319bcb5bb82bec9096c7161b5ec34fafe0fda427fc7d/vimeo-prod-skyfire-std-us/01/1627/12/308135875/1184308017.mp4?filename=file.mp4" type="video/ogg" />
                                 </video>
                             </div>
                         </div>
