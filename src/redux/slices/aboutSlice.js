@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-const BASE_URL = "http://castus.pythonanywhere.com";
+const BASE_URL = "https://castus.pythonanywhere.com";
 export const getAbout = createAsyncThunk(
   "about/aboutData",
   async (h, { getState }) => {
@@ -28,7 +28,7 @@ export const getTeam = createAsyncThunk(
       },
     };
     try {
-      const response = await axios.get(`${BASE_URL}//team-members/`, config);
+      const response = await axios.get(`${BASE_URL}/team-members/`, config);
       return response.data;
     } catch (error) {
       console.log("error in redux", error);
